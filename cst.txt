@@ -1,0 +1,15 @@
+Definitions
+P:: pen
+W:: window
+
+How to define:
+P:: par1: val1, par2: val2, ..., parN: valN
+
+Styling
+* Yellow bold (overrides previous styles, but not size)
+_ Italics
+€<n> (€1, €2, ) Pen
+#<n> Window
+@<n> Size
+& Reset (no size)
+@ Reset size
