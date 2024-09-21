@@ -4,12 +4,16 @@ W:: window
 
 How to define:
 P:: par1: val1, par2: val2, ..., parN: valN
+P:: DEF1 (references predefined styles and windows from WIN.txt and PEN.txt)
 
 Styling
-* Yellow bold (overrides previous styles, but not size)
+* Bold
 _ Italics
+% Underline
 €<n> (€1, €2, ) Pen
+$<n> Pen (alt)
 #<n> Window
 @<n> Size
 & Reset (no size)
+# Default window
 @ Reset size
