@@ -95,8 +95,8 @@ The following properties are allowed in pen definitions:
 ### Color names
 
 The following color names are supported:
+* `black`: Equal to `#080808` (default color).
 * `white`: Equal to `#fefefe`.
-* `black`: Equal to `#010101`.
 * `gray` or `grey`: Equal to `808080`.
 * `red`: Equal to `#ff0000`.
 * `yellow`: Equal to `#ffff00`.
