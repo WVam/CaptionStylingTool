@@ -13,7 +13,7 @@ Window position definitions define the position and anchor point of the caption.
 
 Pen definitions define styles for text formatting, including text color and outline. These can apply either to the entire captions or to sections of it. Bold, italics, underlined and text size are also included in pen styles in `srt3`, but `vts3` handles them separately for convenience.
 
-In `vts3`, there are only two types of definitions: window position definitions (window definitions for short) and pen definitions. Definitions can be inserted anywhere: however, they must be placed before the first time they are referenced, and it is advised to put them at the beginning, after the fourth line of the file.
+In `vts3`, there are only two types of definitions: window position definitions (window definitions for short) and pen definitions. Since there are only 15 valid window styles definitions, they will all be automatically added to the final `srt3` file. Definitions can be inserted anywhere: however, they must be placed before the first time they are referenced, and it is advised to put them at the beginning, after the fourth line of the file.
 
 Spaces (U+‎0020 SPACE) are ignored when parsing a definition. A definition is made of the following elements:
 * A character that specifies what is being defined. This character can be either `P` (‎‎U+0050 LATIN CAPITAL LETTER P) for pen definitions or `W` (U+‎0057 LATIN CAPITAL LETTER W) for window definitions.
@@ -57,7 +57,6 @@ P :: fc: #0000ff
 
 ### Window definitions
 
-The following properties are allowed in window definitions:
 * `ah`: Determines the horizontal distance of the anchor point of the captions window from the left side of the captions area, as a percentage of the width of the captions area. Can be any unsigned (non-negative) integer or decimal (using `.` U+‎002E FULL STOP as the decimal separator). Values will be capped to 100 and decimals will be rounded to the nearest value.
   
   > Note: The captions area is a rectangle with the same center and shape as the video player (including the black bars at the sides), whose width and height are 96% of the player's width and height. This has two major consequences: first, that captions for 16:9 videos that use horizontal positioning far from the center of the video may not be compatible with cinema mode; secondly, that when using resolutions other than 16:9, the same issue may occur in fullscreen mode.
@@ -78,13 +77,41 @@ The following properties are allowed in window definitions:
   * `8`: Bottom right.
   
   >  Note: A caption with an anchor at the top can be pushed by the top of the player. A caption with an anchor at the bottom can be pushed by the bottom of the player.
+ 
 * `ah`: Determines the vertical distance of the anchor point of the captions window from the top side of the captions area, as a percentage of the height of the captions area. Can be any unsigned (non-negative) integer or decimal (using `.` U+‎002E FULL STOP as the decimal separator). Values will be capped to 100 and decimals will be rounded to the nearest value.
   
   > Note: The captions area is a rectangle with the same center and shape as the video player (including the black bars at the sides), whose width and height are 96% of the player's width and height. This means that, for videos using wide aspect ratios, vertical positioning may be different than the expected positioning in cinema and fullscreen mode.
   > 
   > The behaviour of this property can change depending on the following settings defined in `settings.json`:
-  > * `raw_positions`: Defaults to `true`. If set to `false`, values given will be interpreted as relative to the full player area, not just the captions area (so, for example, `25` will correspond to a quarter of the entire player area, whereas with `raw_positions` set to `false` the correct number would be `24`). Positions outside of the captions area will be set to the neares position inside the captions area.
+  > * `raw_positions`: Defaults to `true`. If set to `false`, values given will be interpreted as relative to the full player area, not just the captions area (so, for example, `25` will correspond to a quarter of the entire player area, whereas with `raw_positions` set to `false` the correct number would be `24`). Positions outside of the captions area will be set to the nearest position inside the captions area. Values will be rounded to the nearest integer after being converted to the correct value used by `srt3`.
   > * `correct_positions`: Only used if `raw_positions` is set to `false`. Defaults to `"none"`. If set to `"fullscreen"`, the positions defined through `ah` and `av` will be interpreted as relative to the video area in fullscreen (excluding the black padding stripes), using the `aspect_ratio` setting to determine the video's aspect ratio. If set to `"optimize"`, the positions will be changed to be as close as possible to the intended positions on both fullscreen and normal mode.
 
+### Pen definitions
 
+The following properties are allowed in pen definitions:
+* `bc`: Determines the color of the caption background. Can be a color code (`#` U+‎0023 NUMBER SIGN followed by 6 hexadecimal digits) or one of the supported [color names](#color-names).
+* `bo`: Determines the opacity of the background. Can be a number from `0` (completely transparent) to `254` (almost completely opaque).
 
+### Color names
+
+The following color names are supported:
+* `white`: Equal to `#fefefe`.
+* `black`: Equal to `#010101`.
+* `gray` or `grey`: Equal to `808080`.
+* `red`: Equal to `#ff0000`.
+* `yellow`: Equal to `#ffff00`.
+* `lime`: Equal to `#00ff00`.
+* `cyan`: Equal to `#00ffff`.
+* `blue`: Equal to `#0000ff`.
+* `magenta`: Equal to `#ff00ff`
+* `maroon`: Equal to `#800000`.
+* `olive`: Equal to `#808000`.
+* `green`: Equal to `#008000`.
+* `teal`: Equal to `#008080`.
+* `navy`: Equal to `#000080`.
+* `purple`: Equal to `#800080`.
+* `pink`: Equal to `#ffc0cb`.
+* `orange`: Equal to `#ffa500`.
+* `gold`: Equal to `#ffd700`.
+* `orangered`: Equal to `#ff4500`.
+* `goldenrod`: Equal to `#daa520`.
