@@ -65,7 +65,7 @@ P :: fc: #0000ff
   > * `raw_positions`: Defaults to `true`. If set to `false`, values given will be interpreted as relative to the full player area, not just the captions area (so, for example, `25` will correspond to a quarter of the entire player area, whereas with `raw_positions` set to `false` the correct number would be `24`). Positions outside of the captions area will be clamped.
   > * `correct_positions`: Only used if `raw_positions` is set to `false`. Defaults to `"none"`. If set to `"fullscreen"`, the positions defined through `ah` and `av` will be interpreted as relative to the video area in fullscreen (excluding the black padding stripes), using the `aspect_ratio` setting to determine the video's aspect ratio. If set to `"optimize"`, the positions will be changed to be as close as possible to the intended positions on both fullscreen and normal mode.
   
-* `ap`: Determines the anchor point of the subtitle. Can take the following values:
+* `ap`: Determines the anchor point of the subtitle. Can be any of the following values:
   * `0`: Top left.
   * `1`: Top center.
   * `2`: Top right.
@@ -89,13 +89,31 @@ P :: fc: #0000ff
 ### Pen definitions
 
 The following properties are allowed in pen definitions:
-* `bc`: Determines the color of the caption background. Can be a color code (`#` U+‎0023 NUMBER SIGN followed by 6 hexadecimal digits) or one of the supported [color names](#color-names).
-* `bo`: Determines the opacity of the background. Can be a number from `0` (completely transparent) to `254` (almost completely opaque).
+* `bc`: Determines the color of the caption background. Can be any color code (`#` U+‎0023 NUMBER SIGN followed by 6 hexadecimal digits) other than `#000000` and `#ffffff` or one of the supported [color names](#color-names).
+* `bo`: Determines the opacity of the background. Can be a number from `0` (completely transparent) to `254` (practically completely opaque).
+* `ec`: Determines the color of the text edge. Can be any color code (`#` U+‎0023 NUMBER SIGN followed by 6 hexadecimal digits) other than `#000000` and `#ffffff` or one of the supported [color names](#color-names).
+* `et`: Determines the style of the text edge. Can be any of the following values:
+  * `1` or `solid-shadow`: Hard shadow.
+  * `2` or `solid`: Outline-like effect (double shadow).
+  * `3` or `glow`: Blurred outline.
+  * `4` or `soft-shadow`: Soft shadow.
+  > This is how the outlines look like:
+  > 
+  > ![Screenshot with different outlines](https://github.com/user-attachments/assets/2cdf9067-fc9a-42c7-b7c2-7898241b29df)
+* `fc`: Determines the color of the text. Can be any color code (`#` U+‎0023 NUMBER SIGN followed by 6 hexadecimal digits) other than `#000000` and `#ffffff` or one of the supported [color names](#color-names).
+* `fo`: Determines the opacity of the text. Can be a number from `0` (completely transparent) to `254` (practically completely opaque).
+* `fs`: Determines the font of the text. Can be any of the following values:
+  * `1` or `monospace-serif`: Monospace Serif (Courier New).
+  * `2` or `serif`: Serif (Times New Roman).
+  * `3` or `monospace-sans-serif`: Monospace Sans-Serif (Lucida Console).
+  * `4` or `sans-serif`: Sans-Serif (default, Roboto).
+  * `5` or `fantasy`: Fantasy (Comic Sans)
+  * ...
 
 ### Color names
 
 The following color names are supported:
-* `black`: Equal to `#080808` (default color).
+* `black`: Equal to `#080808` (default background color).
 * `white`: Equal to `#fefefe`.
 * `gray` or `grey`: Equal to `808080`.
 * `red`: Equal to `#ff0000`.
