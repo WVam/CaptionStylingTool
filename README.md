@@ -61,7 +61,7 @@ P :: fc: #0000ff
   
   > Note: The captions area is a rectangle with the same center and shape as the video player (including the black bars at the sides), whose width and height are 96% of the player's width and height. This has two major consequences: first, that captions for 16:9 videos that use horizontal positioning far from the center of the video may not be compatible with cinema mode; secondly, that when using resolutions other than 16:9, the same issue may occur in fullscreen mode.
   > 
-  > The behaviour of this property can change depending on the following settings defined in `settings.json`:
+  > The behaviour of this property can change depending on the following settings defined in `config.json`:
   > * `raw_positions`: Defaults to `true`. If set to `false`, values given will be interpreted as relative to the full player area, not just the captions area (so, for example, `25` will correspond to a quarter of the entire player area, whereas with `raw_positions` set to `false` the correct number would be `24`). Positions outside of the captions area will be clamped.
   > * `correct_positions`: Only used if `raw_positions` is set to `false`. Defaults to `"none"`. If set to `"fullscreen"`, the positions defined through `ah` and `av` will be interpreted as relative to the video area in fullscreen (excluding the black padding stripes), using the `aspect_ratio` setting to determine the video's aspect ratio. If set to `"optimize"`, the positions will be changed to be as close as possible to the intended positions on both fullscreen and normal mode.
   
@@ -82,7 +82,7 @@ P :: fc: #0000ff
   
   > Note: The captions area is a rectangle with the same center and shape as the video player (including the black bars at the sides), whose width and height are 96% of the player's width and height. This means that, for videos using wide aspect ratios, vertical positioning may be different than the expected positioning in cinema and fullscreen mode.
   > 
-  > The behaviour of this property can change depending on the following settings defined in `settings.json`:
+  > The behaviour of this property can change depending on the following settings defined in `config.json`:
   > * `raw_positions`: Defaults to `true`. If set to `false`, values given will be interpreted as relative to the full player area, not just the captions area (so, for example, `25` will correspond to a quarter of the entire player area, whereas with `raw_positions` set to `false` the correct number would be `24`). Positions outside of the captions area will be set to the nearest position inside the captions area. Values will be rounded to the nearest integer after being converted to the correct value used by `srt3`.
   > * `correct_positions`: Only used if `raw_positions` is set to `false`. Defaults to `"none"`. If set to `"fullscreen"`, the positions defined through `ah` and `av` will be interpreted as relative to the video area in fullscreen (excluding the black padding stripes), using the `aspect_ratio` setting to determine the video's aspect ratio. If set to `"optimize"`, the positions will be changed to be as close as possible to the intended positions on both fullscreen and normal mode.
 
@@ -107,8 +107,9 @@ The following properties are allowed in pen definitions:
   * `2` or `serif`: Serif (Times New Roman).
   * `3` or `monospace-sans-serif`: Monospace Sans-Serif (Lucida Console).
   * `4` or `sans-serif`: Sans-Serif (default, Roboto).
-  * `5` or `fantasy`: Fantasy (Comic Sans)
-  * ...
+  * `5` or `fantasy`: Fantasy/Casual (Comic Sans).
+  * `6` or `cursive`: Cursive/Script (Comic Sans).
+  * `7` or `small-caps`: Small Caps (Arial).
 
 ### Color names
 
