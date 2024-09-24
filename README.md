@@ -30,6 +30,7 @@ W 34 ::ah:   34,av:99, a    p   : 2
 W :: ah: 30, av: 45
 P::fc:#ffff00
 P abcdefghijk:lmn:as :: fc : # 0 0 0 0 f f
+P 987 6543 :: DE F2
 ```
 
 However, for ease of use and of reading, it is advised to write them in one of the following three styles:
@@ -39,6 +40,7 @@ W 2 :: ah: 34, av: 99, ap: 2
 W 3 :: ah: 30, av: 45
 P 1 :: fc: #ffff00
 P 2 :: fc: #0000ff
+P 3 :: DEF 2
 ```
 ```
 W1 :: ah: 40, av: 20, ap: 3
@@ -46,6 +48,7 @@ W2 :: ah: 34, av: 99, ap: 2
 W3 :: ah: 30, av: 45
 P1 :: fc: #ffff00
 P2 :: fc: #0000ff
+P3 :: DEF2
 ```
 ```
 W :: ah: 40, av: 20, ap: 3
@@ -53,6 +56,15 @@ W :: ah: 34, av: 99, ap: 2
 W :: ah: 30, av: 45
 P :: fc: #ffff00
 P :: fc: #0000ff
+P :: DEF 2
+```
+```
+W :: ah: 40, av: 20, ap: 3
+W :: ah: 34, av: 99, ap: 2
+W :: ah: 30, av: 45
+P :: fc: #ffff00
+P :: fc: #0000ff
+P :: DEF2
 ```
 
 ### Window definitions
@@ -134,3 +146,39 @@ The following color names are supported:
 * `gold`: Equal to `#ffd700`.
 * `orangered`: Equal to `#ff4500`.
 * `goldenrod`: Equal to `#daa520`.
+
+### Words
+
+A caption is made of lines, separated from each other by a single newline (000A LINE FEED (LF)). Each line is made of words. Words are strings of characters that don't contain spaces (U+‎0020 SPACE), separated from each other by a single space (U+‎0020 SPACE). For example, the line:
+```
+Menin aeide th€4  pel314 d€W AXILHOS
+```
+is composed of the words `"Menin"`, `"aeide"`, `"th€a"`, `""` (an empty string), `"pel314"`, `"d€W"` and `"AXILHOS"`.
+
+Some words have special functions. There special words are divided into four categories: style codes, time codes, offset text and ruby text.
+
+## Style codes
+
+Style codes are special words that change the styling of text. They are divided into two categories:
+* **Style setters**: Style codes that begin with the character `#`. These set the default style for the entire window.
+* **Style switches**: All other style codes. These style codes are used to change the style of part of a caption.
+
+A style code is composed of the following elements:
+* One of the following:
+  * Nothing.
+  * The character `!` (U+0021 EXCLAMATION MARK).
+  * A window setter. The window setter marks everything that follows as part of a new window. It also marks the style code as a style setter. A window setter is composed of the following elements:
+    * The character `#` (U+‎0023 NUMBER SIGN).
+    * (Optional) An unsigned (positive) integer. This integer indicates the window position to use. if a number N is specified, then the Nth window definition defined inside the `.vts3` file will be used. For example, if the code begins with `#1`, the new window will use the window position defined in the first window definition of the file. If an integer is not specified, then YouTube's default window style will be used.
+    * (Optional) A two-letter combination to determine text alignment inside the new window.
+      * The first letter must be one of the following:
+        * `l`: Left-aligned text.
+        * `r`: Right-aligned text.
+        * `c`: Center-aligned text (default).
+      * The second letter must be one of the following:
+        * `h`: Horizontal text (default).
+        * `u`: Upright text (vertical text, does not rotate letters), columns right-to-left.
+        * `U`: Upright text, columns left-to-right.
+        * `s`: Sideways text (text rotated by 90° counterclockwise), columns left-to-right.
+        * `S`: Sideways text, columns right-to-left.
+* 
