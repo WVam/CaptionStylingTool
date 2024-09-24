@@ -241,8 +241,10 @@ A style code is composed of the following elements:
     * Either the character `€` (U+20AC EURO SIGN) or the character `$` (U+‎0024 DOLLAR SIGN). The two characters are interchangeable.
     * (Optional) An unsigned (positive) integer. This integer indicates the pen to use. if a number N is specified, then the Nth pen definition inside the `.vts3` file will be used. For example, if the code begins with `#1`, the following words will use the pen style defined in the first pen definition of the file. If an integer is not specified, the behaviour will change depending on whether the switch is part of a style switch or a style setter.
       * If the pen switch is part of a style switch, then the following words will use the window's default pen. That is the pen referenced by the style switch inside the window's style setter or, in absence of thet, YouTube's default style.
-      * If the pen switch is part of a style switch, then YouTube's default style will become the window's default pen style. Note that this is the case even if a value-less pen switch is not added to the style setter: therefore, in order to obtain the same effect, it is recommended to simply add no pen switch to the style setter.
-    * 
-  * 
+      * If the pen switch is part of a style switch, then YouTube's default pen style will become the window's default pen style. Note that this is the case even if no pen switch is added to the style setter: therefore, it is recommended *not* to add value-less pen switches inside style setters.
+    * (Optional) Either of the following characters:
+      * `+` (U+‎002B PLUS SIGN): The pen switch only overrides the previous pen style's text attributes (everything except `bc` and `bo`).
+      * `-` (U+002D HYPHEN-MINUS): The pen switch only overrides the previous pen style's background attributes (`bc` and `bo`).
+  * A size switch. This switch changes the size of the following words.
 
 Note that dots `.` (U+‎002E FULL STOP) are removed from style codes when they are parsed. This means that you can use dots in order to separate the elements of style codes for your own convenience.
