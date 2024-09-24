@@ -67,7 +67,7 @@ Pen definitions define styles for text formatting, including text color and outl
 
 In `vts3`, there are only two types of definitions: window position definitions (window definitions for short) and pen definitions. Since there are only 15 valid window styles definitions, they will all be automatically added to the final `srt3` file. Definitions can be inserted anywhere after the header lines: however, they must be placed before the first time they are referenced, and it is advised to put them at the beginning, immediately before the first cue.
 
-Spaces (U+‎0020 SPACE) are ignored when parsing a definition. A definition is made of the following elements:
+Spaces (U+‎0020 SPACE) are ignored when parsing a definition. A definition is composed of the following elements:
 * A character that specifies what is being defined. This character can be either `P` (‎‎U+0050 LATIN CAPITAL LETTER P) for pen definitions or `W` (U+‎0057 LATIN CAPITAL LETTER W) for window definitions.
 * A string of characters that does not contain two consecutive colons `:` (U+003A COLON). This is not parsed, but it can be useful in order to annotate the ordinal position of each definition.
 * Two colons `:` (U+003A COLON)
@@ -221,13 +221,13 @@ A style code is composed of the following elements:
   * The character `!` (U+0021 EXCLAMATION MARK).
   * A window setter. The window setter marks everything that follows as part of a new window. It also marks the style code as a style setter. A window setter is composed of the following elements:
     * The character `#` (U+‎0023 NUMBER SIGN).
-    * (Optional) An unsigned (positive) integer. This integer indicates the window position to use. if a number N is specified, then the Nth window definition defined inside the `.vts3` file will be used. For example, if the code begins with `#1`, the new window will use the window position defined in the first window definition of the file. If an integer is not specified, then YouTube's default window style will be used.
-    * (Optional) A two-letter combination to determine text alignment inside the new window.
-      * The first letter must be one of the following:
+    * (Optional) An unsigned (positive) integer. This integer indicates the window position to use. if a number N is specified, then the Nth window definition inside the `.vts3` file will be used. For example, if the code begins with `#1`, the new window will use the window position defined in the first window definition of the file. If an integer is not specified, then YouTube's default window style will be used.
+    * (Optional) A two-character string to determine text alignment inside the new window.
+      * The first character must be one of the following:
         * `l` (U+‎006C LATIN SMALL LETTER L): Left-aligned text.
         * `r` (U+0072 LATIN SMALL LETTER R): Right-aligned text.
         * `c` (U+0063 LATIN SMALL LETTER C): Center-aligned text (default).
-      * The second letter must be one of the following:
+      * The second character must be one of the following:
         * `h` (U+0068 LATIN SMALL LETTER H): Horizontal text (default).
         * `u` (U+0075 LATIN SMALL LETTER U): Upright text (vertical text, does not rotate letters), columns right-to-left.
         * `U` (U+0055 LATIN CAPITAL LETTER U): Upright text, columns left-to-right.
@@ -235,6 +235,14 @@ A style code is composed of the following elements:
         * `S` (U+0053 LATIN CAPITAL LETTER S): Sideways text, columns right-to-left.
 * Any combination of the following:
   * The *italics* switch `_` (U+005F LOW LINE). This switch enables or (if it was already enables) disables italics style for the following words.
-  * The **bold** switch
+  * The **bold** switch `*` (U+‎002A ASTERISK). This switch enables or (if it was already enables) disables bold style for the following words.
+  * The <ins>underline</ins> switch `%` (U+‎‎0025 PERCENT SIGN). This switch enables or (if it was already enables) disables underlined style for the following words.
+  * A pen switch. This switch changes the pen style for the following words. A pen switch is composed of the following elements:
+    * Either the character `€` (U+20AC EURO SIGN) or the character `$` (U+‎0024 DOLLAR SIGN). The two characters are interchangeable.
+    * (Optional) An unsigned (positive) integer. This integer indicates the pen to use. if a number N is specified, then the Nth pen definition inside the `.vts3` file will be used. For example, if the code begins with `#1`, the following words will use the pen style defined in the first pen definition of the file. If an integer is not specified, the behaviour will change depending on whether the switch is part of a style switch or a style setter.
+      * If the pen switch is part of a style switch, then the following words will use the window's default pen. That is the pen referenced by the style switch inside the window's style setter or, in absence of thet, YouTube's default style.
+      * If the pen switch is part of a style switch, then YouTube's default style will become the window's default pen style. Note that this is the case even if a value-less pen switch is not added to the style setter: therefore, in order to obtain the same effect, it is recommended to simply add no pen switch to the style setter.
+    * 
+  * 
 
 Note that dots `.` (U+‎002E FULL STOP) are removed from style codes when they are parsed. This means that you can use dots in order to separate the elements of style codes for your own convenience.
