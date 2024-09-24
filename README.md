@@ -3,6 +3,55 @@ This tool serves the purpose of allowing formatting YouTube subtitles in `.ytt` 
 
 This format should be labelled as `.vts3` (which stands for “`.vtt` to `.srt3`”). The program outputs two files: one for desktop and one for Android. This is due to YouTube's different handling of subtitles on different devices. It is advised to add a warning at the beginning of whichever is the default subtitle to switch to the appropriate version based on one's device. iOS is not currently supported due to lack of testing devices.
 
+## Sample document
+
+```
+WEBVTT
+
+P1 :: fc: cyan
+P2 :: fs: cursive
+W1 :: ap: 3, av: 50, ah: 0
+W2 :: ap: 5, av: 50, ah: 100
+00:11.000 --> 00:13.000
+We are in * New York City *
+
+00:13.000 --> 00:16.000
+We’re actually at the * Lucern Hotel !* , just down the street
+
+00:16.000 --> 00:18.000
+from the % American Museum of Natural History %
+
+00:18.000 --> 00:20.000
+And with me is @150 Neil deGrasse Tyson
+
+00:20.000 --> 00:22.000
+Astrophysicist, Director of the Hayden Planetarium
+
+00:22.000 --> 00:24.000
+at the AMNH.
+
+00:24.000 --> 00:26.000
+Thank you for walking down here.
+
+00:27.000 --> 00:30.000
+And I want to do a follow-up on the last conversation we did.
+
+00:30.000 --> 00:31.500 align:right size:50%
+When we e-mailed—
+
+00:30.500 --> 00:32.500 align:left size:50%
+#1.€1.@75 Didn’t we talk about enough in that conversation?
+
+00:32.000 --> 00:35.500
+#2.@75 No! No no no no; 'cos 'cos obviously 'cos
+
+00:32.500 --> 00:33.500 align:left size:50%
+#1.€1.@75._ Laughs
+
+00:35.500 --> 00:38.000
+You know I’m so excited my €2 glasses & are falling off here.
+```
+
 ## Style definitions
 
 In `srt3`, there are three types of definitions: window style definitions, window position definitions and pen definitions.
@@ -13,7 +62,7 @@ Window position definitions define the position and anchor point of the caption.
 
 Pen definitions define styles for text formatting, including text color and outline. These can apply either to the entire captions or to sections of it. Bold, italics, underlined and text size are also included in pen styles in `srt3`, but `vts3` handles them separately for convenience.
 
-In `vts3`, there are only two types of definitions: window position definitions (window definitions for short) and pen definitions. Since there are only 15 valid window styles definitions, they will all be automatically added to the final `srt3` file. Definitions can be inserted anywhere: however, they must be placed before the first time they are referenced, and it is advised to put them at the beginning, after the fourth line of the file.
+In `vts3`, there are only two types of definitions: window position definitions (window definitions for short) and pen definitions. Since there are only 15 valid window styles definitions, they will all be automatically added to the final `srt3` file. Definitions can be inserted anywhere: however, they must be placed before the first time they are referenced, and it is advised to put them at the beginning, immediately before the first.
 
 Spaces (U+‎0020 SPACE) are ignored when parsing a definition. A definition is made of the following elements:
 * A character that specifies what is being defined. This character can be either `P` (‎‎U+0050 LATIN CAPITAL LETTER P) for pen definitions or `W` (U+‎0057 LATIN CAPITAL LETTER W) for window definitions.
@@ -181,4 +230,7 @@ A style code is composed of the following elements:
         * `U`: Upright text, columns left-to-right.
         * `s`: Sideways text (text rotated by 90° counterclockwise), columns left-to-right.
         * `S`: Sideways text, columns right-to-left.
-* 
+* Any combination of the following:
+  * The *italics* switch `_` (U+005F LOW LINE).
+
+Note that dots `.` (U+‎002E FULL STOP) are removed from style codes when they are parsed. This means that you can use dots in order to separate the elements of style codes for your own convenience.
