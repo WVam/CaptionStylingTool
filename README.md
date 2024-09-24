@@ -13,6 +13,7 @@ P2 :: fs: cursive
 W1 :: ap: 3, av: 50, ah: 0
 W2 :: ap: 5, av: 50, ah: 100
 00:11.000 --> 00:13.000
+
 We are in * New York City *
 
 00:13.000 --> 00:16.000
@@ -24,6 +25,8 @@ from the % American Museum of Natural History %
 00:18.000 --> 00:20.000
 And with me is @150 Neil deGrasse Tyson
 
+NOTE This is a good place to mention that, while most VTT features don't work, comments do.
+
 00:20.000 --> 00:22.000
 Astrophysicist, Director of the Hayden Planetarium
 
@@ -34,22 +37,22 @@ at the AMNH.
 Thank you for walking down here.
 
 00:27.000 --> 00:30.000
-And I want to do a follow-up on the last conversation we did.
+And I want to do a $1._ follow-up _ on $ the last conversation we did.
 
-00:30.000 --> 00:31.500 align:right size:50%
+00:30.000 --> 00:31.500
 When we e-mailed—
 
-00:30.500 --> 00:32.500 align:left size:50%
+00:30.500 --> 00:32.500
 #1.€1.@75 Didn’t we talk about enough in that conversation?
 
 00:32.000 --> 00:35.500
 #2.@75 No! No no no no; 'cos 'cos obviously 'cos
 
-00:32.500 --> 00:33.500 align:left size:50%
+00:32.500 --> 00:33.500
 #1.€1.@75._ Laughs
 
 00:35.500 --> 00:38.000
-You know I’m so excited my €2 glasses & are falling off here.
+You know I’m so excited my €2@200 glasses & are falling off here.
 ```
 
 ## Style definitions
@@ -62,7 +65,7 @@ Window position definitions define the position and anchor point of the caption.
 
 Pen definitions define styles for text formatting, including text color and outline. These can apply either to the entire captions or to sections of it. Bold, italics, underlined and text size are also included in pen styles in `srt3`, but `vts3` handles them separately for convenience.
 
-In `vts3`, there are only two types of definitions: window position definitions (window definitions for short) and pen definitions. Since there are only 15 valid window styles definitions, they will all be automatically added to the final `srt3` file. Definitions can be inserted anywhere: however, they must be placed before the first time they are referenced, and it is advised to put them at the beginning, immediately before the first.
+In `vts3`, there are only two types of definitions: window position definitions (window definitions for short) and pen definitions. Since there are only 15 valid window styles definitions, they will all be automatically added to the final `srt3` file. Definitions can be inserted anywhere after the header lines: however, they must be placed before the first time they are referenced, and it is advised to put them at the beginning, immediately before the first cue.
 
 Spaces (U+‎0020 SPACE) are ignored when parsing a definition. A definition is made of the following elements:
 * A character that specifies what is being defined. This character can be either `P` (‎‎U+0050 LATIN CAPITAL LETTER P) for pen definitions or `W` (U+‎0057 LATIN CAPITAL LETTER W) for window definitions.
@@ -221,16 +224,17 @@ A style code is composed of the following elements:
     * (Optional) An unsigned (positive) integer. This integer indicates the window position to use. if a number N is specified, then the Nth window definition defined inside the `.vts3` file will be used. For example, if the code begins with `#1`, the new window will use the window position defined in the first window definition of the file. If an integer is not specified, then YouTube's default window style will be used.
     * (Optional) A two-letter combination to determine text alignment inside the new window.
       * The first letter must be one of the following:
-        * `l`: Left-aligned text.
-        * `r`: Right-aligned text.
-        * `c`: Center-aligned text (default).
+        * `l` (U+‎006C LATIN SMALL LETTER L): Left-aligned text.
+        * `r` (U+0072 LATIN SMALL LETTER R): Right-aligned text.
+        * `c` (U+0063 LATIN SMALL LETTER C): Center-aligned text (default).
       * The second letter must be one of the following:
-        * `h`: Horizontal text (default).
-        * `u`: Upright text (vertical text, does not rotate letters), columns right-to-left.
-        * `U`: Upright text, columns left-to-right.
-        * `s`: Sideways text (text rotated by 90° counterclockwise), columns left-to-right.
-        * `S`: Sideways text, columns right-to-left.
+        * `h` (U+0068 LATIN SMALL LETTER H): Horizontal text (default).
+        * `u` (U+0075 LATIN SMALL LETTER U): Upright text (vertical text, does not rotate letters), columns right-to-left.
+        * `U` (U+0055 LATIN CAPITAL LETTER U): Upright text, columns left-to-right.
+        * `s` (U+0073 LATIN SMALL LETTER S): Sideways text (text rotated by 90° counterclockwise), columns left-to-right.
+        * `S` (U+0053 LATIN CAPITAL LETTER S): Sideways text, columns right-to-left.
 * Any combination of the following:
-  * The *italics* switch `_` (U+005F LOW LINE).
+  * The *italics* switch `_` (U+005F LOW LINE). This switch enables or (if it was already enables) disables italics style for the following words.
+  * The **bold** switch
 
 Note that dots `.` (U+‎002E FULL STOP) are removed from style codes when they are parsed. This means that you can use dots in order to separate the elements of style codes for your own convenience.
