@@ -70,7 +70,7 @@ In `vts3`, there are only two types of definitions: window position definitions 
 Spaces (U+‎0020 SPACE) are ignored when parsing a definition. A definition is composed of the following elements:
 * A character that specifies what is being defined. This character can be either `P` (‎‎U+0050 LATIN CAPITAL LETTER P) for pen definitions or `W` (U+‎0057 LATIN CAPITAL LETTER W) for window definitions.
 * A string of characters that does not contain two consecutive colons `:` (U+003A COLON). This is not parsed, but it can be useful in order to annotate the ordinal position of each definition.
-* Two colons `:` (U+003A COLON)
+* Two colons `:` (U+003A COLON).
 * Either:
   * A comma-separated list of property-value pairs. Property names and their respective values must be separated by the character `:` (U+003A COLON). Property-value pairs must be separated by the character `,` (U+002C COMMA).
   * The string `DEF` (U+0044 LATIN CAPITAL LETTER D, U+‎0045 LATIN CAPITAL LETTER E, U+‎0046 LATIN CAPITAL LETTER F) followed by an integer. This is used to reference a style defined in the `default.vts3` file located in the same directory as the program. The integer determines which style is referenced: `1` references the first definition of that type (window or pen) in `default.vts3`, `2` references the second definition of that type, and so on.  
@@ -199,7 +199,7 @@ The following color names are supported:
 * `orangered`: Equal to `#ff4500`.
 * `goldenrod`: Equal to `#daa520`.
 
-### Words
+## Words
 
 A caption is made of lines, separated from each other by a single newline (000A LINE FEED (LF)). Each line is made of words. Words are strings of characters that don't contain spaces (U+‎0020 SPACE), separated from each other by a single space (U+‎0020 SPACE). For example, the line:
 ```
@@ -207,9 +207,13 @@ Menin aeide th€4  pel314 d€W AXILHOS
 ```
 is composed of the words `"Menin"`, `"aeide"`, `"th€a"`, `""` (an empty string), `"pel314"`, `"d€W"` and `"AXILHOS"`.
 
-Some words have special functions. There special words are divided into four categories: style codes, time codes, offset text and ruby text.
+Some words have special functions. There special words are divided into five categories: escapes, style codes, time codes, offset text and ruby text.
 
-## Style codes
+### Escapes
+
+Escapes are all words longer than 1 character which begin with the character `:` (U+003A COLON). These words will be rendered as they are written, without the first character (i.e., the colon). This is useful for displaying sequences of character that would otherwise be interpreted as special words (e.g. `$200`).
+
+### Style codes
 
 Style codes are special words that change the styling of text. They are divided into two categories:
 * **Style setters**: Style codes that begin with the character `#`. These set the default style for the entire window.
@@ -233,7 +237,7 @@ A style code is composed of the following elements:
         * `U` (U+0055 LATIN CAPITAL LETTER U): Upright text, columns left-to-right.
         * `s` (U+0073 LATIN SMALL LETTER S): Sideways text (text rotated by 90° counterclockwise), columns left-to-right.
         * `S` (U+0053 LATIN CAPITAL LETTER S): Sideways text, columns right-to-left.
-* Any combination of the following:
+* Any combination of the following characters or character sequences, called **switches**:
   * The *italics* switch `_` (U+005F LOW LINE). This switch enables or (if it was already enables) disables italics style for the following words.
   * The **bold** switch `*` (U+‎002A ASTERISK). This switch enables or (if it was already enables) disables bold style for the following words.
   * The <ins>underline</ins> switch `%` (U+‎‎0025 PERCENT SIGN). This switch enables or (if it was already enables) disables underlined style for the following words.
@@ -251,8 +255,49 @@ A style code is composed of the following elements:
   * The reset switch `&` (U+‎0026 AMPERSAND). It resets everything to the style indicated in the window's style setter (or, in absence of that, to YouTube's default style). This applies before all other switches.
   > Note: The difference between the reset switch `&` and a value-less pen switch `€`/`$` is that the latter only resets the style attributes that are specified in a pen definition (like font color, font family, outlines, etc.), while `&` resets everything (including size, italics, bold, etc.)
 
-The same switch must not be repeated twice. If it is, then it will be considered as an escape: the repeated switch will be removed; the escaped style code will be displayed as written and will not change the style of the following words.
+A few things to note:
+- Dots `.` (U+‎002E FULL STOP) are removed from style codes when they are parsed. This means that you can use dots in order to separate the elements of style codes for your own convenience.
+- A switch at the end of the caption will be discarded. If a switch is added at the end of a line, no additional space will be added between the last word and the newline.
+- The combination of switches at the end of a style code can be composed of no switches. This means that empty strings will be considered style switches and removed upon parsing. This also means that multiple spaces will not be counted. If you want your space to count, please use `&#160;` (which results in U+‎00A0 NO-BREAK SPACE).
+- It is recomended to "close" italics, bold and underline switches, as if they were Markdown elements, for the sake of clarity.
 
+### Time codes
 
+Time codes serve the purpose of making the following words appear at a later time (like karaoke).
 
-Note that dots `.` (U+‎002E FULL STOP) are removed from style codes when they are parsed. This means that you can use dots in order to separate the elements of style codes for your own convenience.
+There are two kinds of time code: relative and absolute. Relative time codes start with a single `;` (U+‎003B SEMICOLON) and they indicate how much time after the beginning of the line the following words should be shown. Absolute time codes start with a double semicolon `;;` and indicate the absolute time at which the following words should be displayed.
+
+A time code is composed of the following elements:
+* The character `;` (U+‎003B SEMICOLON).
+* (Optionally) One digit to indicate how many minutes after the beginning of the caption the following words should play, followed by the character `:` (U+003A COLON).
+* Two digits to indicate how many seconds after the beginning of the caption the following words should play. These are added to the minutes specified previously.
+* The `.` (U+‎002E FULL STOP) character.
+* Three digits to indicate how many milliseconds afrer the beginning of the caption the following words should play. These are added to the minutes and seconds specified previously.
+
+An absolute time code is composed of the following elements:
+* The string `;;` (U+‎003B SEMICOLON, U+‎003B SEMICOLON).
+* A [WebVTT timestamp](https://www.w3.org/TR/webvtt1/#webvtt-cue-timings) indicating the absolute time in the video at which the following words should be displayed.
+
+### Offset text
+
+Offset text are all words that start and end with the character `^` (U+002A ASTERISK) or start and end with the character `_` (U+005F LOW LINE). It is used to display subscript or superscript text.
+
+Offset text is composed of the following elements:
+* The opening character. It can be any of the following:
+  * `*` (U+002A ASTERISK): It indicates that the text between the closing and opening carets must be superscript.
+  * `_` (U+005F LOW LINE): It indicates that the text between the closing and opening carets must be subscript.
+* (Optionally) The escape character `:`. It prevents the following characters from being parsed as a spacing controller (see below). The colon will be removed from the offset text.
+* (Optionally) A spacing controller, which determines how that text is spaced from surrounding words. A spacing controller is composed of the following elements:
+  * The character `!` (U+0021 EXCLAMATION MARK).
+  * A two-character string which can be any of the following:
+    * `00` (U+0030 DIGIT ZERO, U+0030 DIGIT ZERO): Joined with the words on both sides.
+    * `01` (U+0030 DIGIT ZERO, U+0031 DIGIT ONE): Joined with the word on the left (default behavior).
+    * `10` (U+0031 DIGIT ONE, U+0030 DIGIT ZERO): Joined with the word on the right.
+    * `11` (U+0031 DIGIT ONE, U+0031 DIGIT ONE): Joined with neither word.
+* The text to display as superscript or subscript.
+* The closing character. It must be the same as the opening character.
+
+### Ruby text
+
+Ruby text is used to display furigana and similar annotations for CJK.
+
