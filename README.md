@@ -218,7 +218,7 @@ Style codes are special words that change the styling of text. They are divided 
 A style code is composed of the following elements:
 * One of the following:
   * Nothing.
-  * The character `!` (U+0021 EXCLAMATION MARK).
+  * The character `!` (U+0021 EXCLAMATION MARK). If the style code starts with an exclamation mark, then the previous and following word will be joined together in the final subtitle instead of being separated by a space. For example, `It's _ me !_ , Joe!` will be rendered as "It's *me*, Joe!" rather than "It's *me* , Joe!".
   * A window setter. The window setter marks everything that follows as part of a new window. It also marks the style code as a style setter. A window setter is composed of the following elements:
     * The character `#` (U+‎0023 NUMBER SIGN).
     * (Optional) An unsigned (positive) integer. This integer indicates the window position to use. if a number N is specified, then the Nth window definition inside the `.vts3` file will be used. For example, if the code begins with `#1`, the new window will use the window position defined in the first window definition of the file. If an integer is not specified, then YouTube's default window style will be used.
@@ -239,12 +239,20 @@ A style code is composed of the following elements:
   * The <ins>underline</ins> switch `%` (U+‎‎0025 PERCENT SIGN). This switch enables or (if it was already enables) disables underlined style for the following words.
   * A pen switch. This switch changes the pen style for the following words. A pen switch is composed of the following elements:
     * Either the character `€` (U+20AC EURO SIGN) or the character `$` (U+‎0024 DOLLAR SIGN). The two characters are interchangeable.
-    * (Optional) An unsigned (positive) integer. This integer indicates the pen to use. if a number N is specified, then the Nth pen definition inside the `.vts3` file will be used. For example, if the code begins with `#1`, the following words will use the pen style defined in the first pen definition of the file. If an integer is not specified, the behaviour will change depending on whether the switch is part of a style switch or a style setter.
-      * If the pen switch is part of a style switch, then the following words will use the window's default pen. That is the pen referenced by the style switch inside the window's style setter or, in absence of thet, YouTube's default style.
-      * If the pen switch is part of a style switch, then YouTube's default pen style will become the window's default pen style. Note that this is the case even if no pen switch is added to the style setter: therefore, it is recommended *not* to add value-less pen switches inside style setters.
+    * (Optional) An unsigned (positive) integer. This integer indicates the pen to use for the following words. if a number N is specified, then the Nth pen definition inside the `.vts3` file will be used. For example, if the code begins with `#1`, the following words will use the pen style defined in the first pen definition of the file. If an integer is not specified, the behaviour will change depending on whether the switch is part of a style switch or a style setter.
+      * If the pen switch is part of a style switch, then the following words will use the window's default pen. That is the pen referenced by the style switch inside the window's style setter or, in absence of that, YouTube's default style.
+      * If the pen switch is part of a style setter, then YouTube's default pen style will become the window's default pen style. Note that this is the case even if no pen switch is added to the style setter: therefore, it is recommended *not* to add value-less pen switches inside style setters.
     * (Optional) Either of the following characters:
       * `+` (U+‎002B PLUS SIGN): The pen switch only overrides the previous pen style's text attributes (everything except `bc` and `bo`).
       * `-` (U+002D HYPHEN-MINUS): The pen switch only overrides the previous pen style's background attributes (`bc` and `bo`).
-  * A size switch. This switch changes the size of the following words.
+  * A size switch. This switch changes the size of the following words. A size switch is composed of the following elements:
+    * The character `@` (U+0040 COMMERCIAL AT).
+    * An unsigned (non-negative) integer greater or equal to 300. This integer indicates the size to use for the following words. It indicates the size relative to YouTube's default size in four-hundredths (1/400s). Therefore, in order to make text twice as big as normal, you will need to use the number 800.
+  * The reset switch `&` (U+‎0026 AMPERSAND). It resets everything to the style indicated in the window's style setter (or, in absence of that, to YouTube's default style). This applies before all other switches.
+  > Note: The difference between the reset switch `&` and a value-less pen switch `€`/`$` is that the latter only resets the style attributes that are specified in a pen definition (like font color, font family, outlines, etc.), while `&` resets everything (including size, italics, bold, etc.)
+
+The same switch must not be repeated twice. If it is, then it will be considered as an escape: the repeated switch will be removed; the escaped style code will be displayed as written and will not change the style of the following words.
+
+
 
 Note that dots `.` (U+‎002E FULL STOP) are removed from style codes when they are parsed. This means that you can use dots in order to separate the elements of style codes for your own convenience.
