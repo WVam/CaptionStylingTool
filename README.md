@@ -301,3 +301,9 @@ Offset text is composed of the following elements:
 
 Ruby text is used to display furigana and similar annotations for CJK.
 
+Ruby text is composed of the following elements:
+* One of the following characters:
+  * `¥` U+00A5 YEN SIGN
+  * `￥` U+FFE5 FULLWIDTH YEN SIGN
+  * `元` U+5143 CJK UNIFIED IDEOGRAPH-5143
+  
