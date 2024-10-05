@@ -167,13 +167,14 @@ The following properties are allowed in pen definitions:
 * `fc`: Determines the color of the text. Can be any color code (`#` U+‎0023 NUMBER SIGN followed by 6 hexadecimal digits) other than `#000000` and `#ffffff` or one of the supported [color names](#color-names).
 * `fo`: Determines the opacity of the text. Can be a number from `0` (completely transparent) to `254` (practically completely opaque).
 * `fs`: Determines the font of the text. Can be any of the following values:
-  * `1` or `monospace-serif`: Monospace Serif (main font: Courier New; fallbacks: Courier > Nimbus Mono L > Cutive Mono > `monospace`).
-  * `2` or `serif`: Serif (main font: Times New Roman; fallbacks: Times > Georgia > Cambria > PT Serif Caption > `serif`).
-  * `3` or `monospace-sans-serif`: Monospace Sans-Serif (main font: Deja Vu Sans Mono; fallbacks: Lucida Console > Monaco > Consolas > PT Mono > `monospace`).
-  * `4` or `sans-serif`: Sans-Serif (default, main font: Noto; fallbacks: Roboto > Arial > Helvetica > Verdana > PT Sans Caption > `sans-serif`).
-  * `5` or `fantasy`: Fantasy/Casual (main font: Comic Sans MS; fallbacks: Impact > Handlee > `fantasy`).
-  * `6` or `cursive`: Cursive/Script (main font: Monotype Corsiva; fallbacks: URW Chancery L > Apple Chancery > Dancing Script > `cursive`).
-  * `7` or `small-caps`: Small Caps (a sans serif font using small caps; main font: Arial; fallbacks: Helvetica > Verdana > Marcellus SC > sans-serif).
+  * `1` or `monospace-serif`: Monospace Serif (main font: [Courier New](https://www.myfonts.com/collections/courier-new-font-monotype-imaging); fallbacks: [Courier](https://www.myfonts.com/collections/courier-font-paratype) > [Nimbus Mono L](https://www.myfonts.com/collections/nimbus-mono-l-font-urw) > [Cutive Mono](https://fonts.google.com/specimen/Cutive+Mono) > `monospace`).
+  * `2` or `serif`: Serif (main font: [Times New Roman](https://www.myfonts.com/collections/times-new-roman-font-monotype-imaging); fallbacks: [Times](https://www.myfonts.com/collections/times-font-linotype) > [Georgia](https://www.myfonts.com/collections/georgia-font-microsoft-corporation) > [Cambria](https://www.myfonts.com/collections/cambria-font-microsoft-corporation) > [PT Serif Caption](https://fonts.google.com/specimen/PT+Serif+Caption) > `serif`).
+  * `3` or `monospace-sans-serif`: Monospace Sans-Serif (main font: [Deja Vu Sans Mono](https://dejavu-fonts.github.io/); fallbacks: [Lucida Console](https://www.myfonts.com/collections/lucida-console-font-monotype-imaging) > [Monaco](# "Not available for sale online.") > [Consolas](https://www.myfonts.com/collections/consolas-font-microsoft-corporation) > [PT Mono](https://fonts.google.com/specimen/PT+Mono) > `monospace`).
+  * `4` or `sans-serif`: Sans-Serif (default, main font: [Noto Sans](https://fonts.google.com/noto); fallbacks: [Roboto](https://fonts.google.com/specimen/Roboto) > [Arial](https://www.myfonts.com/collections/arial-font-monotype-imaging) > [Helvetica](https://www.myfonts.com/collections/helvetica-font-linotype) > [Verdana](https://www.myfonts.com/collections/verdana-font-microsoft-corporation) > [PT Sans Caption](https://fonts.google.com/specimen/PT+Sans+Caption) > `sans-serif`).
+  * `5` or `fantasy`: Fantasy/Casual (main font: [Comic Sans MS](https://www.myfonts.com/collections/comic-sans-font-microsoft-corporation); fallbacks: [Impact](https://www.myfonts.com/collections/impact-font-urw) > [Handlee](https://fonts.google.com/specimen/Handlee) > `fantasy`).
+  * `6` or `cursive`: Cursive/Script (main font: [Monotype Corsiva](https://www.myfonts.com/collections/monotype-corsiva-font-monotype-imaging); fallbacks: [URW Chancery L](# "Not available for sale online.") > [Apple Chancery](# "Not available for sale online.") > [Dancing Script](https://fonts.google.com/specimen/Dancing+Script) > `cursive`).
+  * `7` or `small-caps`: Small Caps (a sans serif font using small caps; main font: Arial; fallbacks: Helvetica > Verdana > [Marcellus SC](https://fonts.google.com/specimen/Marcellus+SC) > sans-serif).
+ > Note: The program comes with some of these fonts already installed. Some other fonts can be legally downloaded for free from [this repository](https://github.com/pushcx/corefonts).
 
 ### Color names
 
