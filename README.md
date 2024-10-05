@@ -167,13 +167,13 @@ The following properties are allowed in pen definitions:
 * `fc`: Determines the color of the text. Can be any color code (`#` U+‎0023 NUMBER SIGN followed by 6 hexadecimal digits) other than `#000000` and `#ffffff` or one of the supported [color names](#color-names).
 * `fo`: Determines the opacity of the text. Can be a number from `0` (completely transparent) to `254` (practically completely opaque).
 * `fs`: Determines the font of the text. Can be any of the following values:
-  * `1` or `monospace-serif`: Monospace Serif (Courier New).
-  * `2` or `serif`: Serif (Times New Roman).
-  * `3` or `monospace-sans-serif`: Monospace Sans-Serif (Lucida Console).
-  * `4` or `sans-serif`: Sans-Serif (default, Roboto).
-  * `5` or `fantasy`: Fantasy/Casual (Comic Sans).
-  * `6` or `cursive`: Cursive/Script (Comic Sans).
-  * `7` or `small-caps`: Small Caps (Arial).
+  * `1` or `monospace-serif`: Monospace Serif (main font: Courier New; fallbacks: Courier > Nimbus Mono L > Cutive Mono > `monospace`).
+  * `2` or `serif`: Serif (main font: Times New Roman; fallbacks: Times > Georgia > Cambria > PT Serif Caption > `serif`).
+  * `3` or `monospace-sans-serif`: Monospace Sans-Serif (main font: Deja Vu Sans Mono; fallbacks: Lucida Console > Monaco > Consolas > PT Mono > `monospace`).
+  * `4` or `sans-serif`: Sans-Serif (default, main font: Noto; fallbacks: Roboto > Arial > Helvetica > Verdana > PT Sans Caption > `sans-serif`).
+  * `5` or `fantasy`: Fantasy/Casual (main font: Comic Sans MS; fallbacks: Impact > Handlee > `fantasy`).
+  * `6` or `cursive`: Cursive/Script (main font: Monotype Corsiva; fallbacks: URW Chancery L > Apple Chancery > Dancing Script > `cursive`).
+  * `7` or `small-caps`: Small Caps (a sans serif font using small caps; main font: Arial; fallbacks: Helvetica > Verdana > Marcellus SC > sans-serif).
 
 ### Color names
 
